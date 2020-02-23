@@ -1,4 +1,10 @@
 <h1>Homes#top</h1>
 
 
-ようこそ！  <%= @user_name %> さん
+<div>
+	<%= form_tag(wordbooks_path, method: :post) do %>
+	  <%= label_tag :検索したい単語 %><br>
+	  <%= text_field_tag :word %>
+	  <%= submit_tag "検索" %>
+	<% end %>
+</div>
