@@ -1,2 +1,10 @@
-<h1>Searches#show</h1>
-<p>Find me in app/views/searches/show.html.erb</p>
+<p> ようこそ  <%= @user_name %>  さん </p>
+
+
+<div>
+	<%= form_tag(wordbooks_path, method: :post) do %>
+	  <%= label_tag :検索したい単語 %><br>
+	  <%= text_field_tag :word %>
+	  <%= submit_tag "検索" %>
+	<% end %>
+</div>
