@@ -1,1 +1,10 @@
 ようこそ！  <%= @user_name %> さん
+
+
+
+<% url = 'https://pixabay.com/api/?key=15371520-8deb9c8dd8bbb01f97ab99cc1&q=flower' %>
+<%= uri = URI(url) %>
+<% response = Net::HTTP.get(uri) %>
+<% standard = JSON.parse(response) %>
+<% symbol =  JSON.parse(response, symbolize_names: true) %>
+<% struct = JSON.parse(response, object_class: OpenStruct) %>

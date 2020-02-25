@@ -22,7 +22,7 @@
           <ul class="nav navbar-nav navbar-right">
             <!--if文でサインインとアウト時の表示を変更-->
             <% if user_signed_in? %>
-            <li><%= link_to ' ORIGIN BOOK', root_path, class: 'glyphicon glyphicon-book books' %></li>
+            <li><%= link_to ' ORIGIN BOOK', root_path %></li>
             <li><%= link_to ' ABOUT', homes_about_path, class: 'glyphicon glyphicon-link about' %></li>
             <li><%= link_to ' WORDBOOK', wordbooks_path, class: 'glyphicon glyphicon-book books' %></li>
             <li><%= link_to ' LOGOUT', destroy_user_session_path, method: :delete, class: 'glyphicon glyphicon-log-out logout' %></li>

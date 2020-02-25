@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_22_115212) do
+ActiveRecord::Schema.define(version: 2020_02_25_091358) do
+
+  create_table "images", force: :cascade do |t|
+    t.integer "search_cache_id"
+    t.string "word_image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "search_caches", force: :cascade do |t|
+    t.string "word"
+    t.text "definition"
+    t.text "origin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["word"], name: "index_search_caches_on_word"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,6 +39,18 @@ ActiveRecord::Schema.define(version: 2020_02_22_115212) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "wordbooks", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "word"
+    t.text "meaning"
+    t.text "origin"
+    t.integer "image_id"
+    t.string "my_image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["word"], name: "index_wordbooks_on_word"
   end
 
 end
