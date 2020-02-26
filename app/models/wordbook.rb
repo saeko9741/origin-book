@@ -1,5 +1,5 @@
 class Wordbook < ApplicationRecord
 	belongs_to :user
 	belongs_to :image
-	attachment :profile_image, destroy: false
+	attachment :my_image
 end

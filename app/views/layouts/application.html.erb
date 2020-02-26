@@ -15,11 +15,8 @@
       <script src="https://kit.fontawesome.com/f51303c114.js" crossorigin="anonymous"></script>
       <div class="container">
 
-        <nav class="nav navbar-nav navbar-left">
-          <span>ORIGIN BOOK</span>
-        </nav>
         <nav>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-left">
             <!--if文でサインインとアウト時の表示を変更-->
             <% if user_signed_in? %>
             <li><%= link_to ' ORIGIN BOOK', root_path %></li>
@@ -28,10 +25,11 @@
             <li><%= link_to ' LOGOUT', destroy_user_session_path, method: :delete, class: 'glyphicon glyphicon-log-out logout' %></li>
 
             <% else %>
-            <li><%= link_to ' ORIGIN BOOK', root_path, class: 'glyphicon glyphicon-home home' %></li>
+            <li><%= link_to ' ORIGIN BOOK', root_path %></li>
             <li><%= link_to ' ABOUT', homes_about_path, class: 'glyphicon glyphicon-link about' %></li>
             <li><%= link_to ' SIGNUP', new_user_registration_path, class: 'glyphicon glyphicon-edit sign_up' %></li>
             <li><%= link_to ' LOGIN', new_user_session_path, class: 'glyphicon glyphicon-log-in sign_in' %></li>
+            <li><%= "ようこそゲストさん" %></li>
             <% end %>
           </ul>
         </nav>
@@ -40,7 +38,6 @@
     <!--ヘッダーの記述-->
     <div class="container">
       <div class="row">
-      <p id="notice"><%= notice %></p> <!--デバイスでnotice設定されているので呼び出してるだけ-->
         <%= yield %>
       </div>
     </div>
