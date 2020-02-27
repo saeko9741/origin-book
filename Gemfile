@@ -82,3 +82,6 @@ gem "refile-mini_magick"
 
 gem 'nokogiri'
 
+source 'https://rubygems.org'
+gem 'rest-client'
+
