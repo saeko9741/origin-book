@@ -1,9 +1,9 @@
 <div>
 	<div align="center">
-		<%= form_tag(new_wordbook_path, method: :get) do %>
-		  <%= label_tag :検索したい英単語 %><br>
-		  <%= text_field_tag :word %>
-		  <%= submit_tag "検索", class: "btn btn-default" %>
+		<%=form_with model: @search_cache do |f|%>
+		  <%= f.label :検索したい英単語 %><br>
+		  <%= f.text_field :word %>
+		  <%= f.submit "検索", class: "btn btn-default" %>
 		<% end %>
 	</div>
 </div>
