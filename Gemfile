@@ -81,6 +81,7 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 # スクレイピング
 gem 'nokogiri'
+gem 'mechanize'
 # 翻訳API
 source 'https://rubygems.org'
 gem 'rest-client'
