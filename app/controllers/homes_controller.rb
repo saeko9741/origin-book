@@ -1,3 +1,4 @@
+
 class HomesController < ApplicationController
   def top
   	@search_cache = SearchCache.new

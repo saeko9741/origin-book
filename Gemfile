@@ -68,20 +68,21 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # 追加
 gem 'devise'
-
+#MySQLを利用するため
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
 end
-
+# bootstrap
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
-
+# 画像投稿
 gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
-
+# スクレイピング
 gem 'nokogiri'
-
+# 翻訳API
 source 'https://rubygems.org'
 gem 'rest-client'
+
 
