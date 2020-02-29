@@ -83,7 +83,6 @@ gem "refile-mini_magick"
 gem 'nokogiri'
 gem 'mechanize'
 # 翻訳API
-source 'https://rubygems.org'
 gem 'rest-client'
 
 
