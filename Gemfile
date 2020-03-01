@@ -82,7 +82,7 @@ gem "refile-mini_magick"
 # スクレイピング
 gem 'nokogiri'
 gem 'mechanize'
-# 翻訳API
+# HTTPアクセス用
 gem 'rest-client'
 
 
