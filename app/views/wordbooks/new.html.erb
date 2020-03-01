@@ -1,5 +1,13 @@
 <div>
-	<%= @search_cache.word%>
-	<%= @search_cache.definition%>
-	<%= @search_cache.origin%>
+	<div align="">
+		<%=form_with model: @search_cache, url: wordbooks_path do |f|%>
+		  <%= f.label :検索した英単語 %>
+		  <%= @search_cache.word%><br>
+		  <%= f.label :意味 %>
+		  <%= f.text_field :definition %><br>
+		  <%= f.label :語源 %>
+		  <%= f.text_area :origin, :size=>"100x2" %><br>
+		  <%= f.submit "保存", class: "btn btn-default" %>
+		<% end %>
+	</div>
 </div>
