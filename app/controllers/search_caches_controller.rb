@@ -8,7 +8,6 @@ class SearchCachesController < ApplicationController
   def create
   	# if分岐
     word = params[:search_cache][:word]
-
 ################### 翻訳API ################################################################################################
   	translate_url = 'https://translation.googleapis.com/language/translate/v2?key=' + ENV['TRANSLATE_API_KEY']
   	payload = {
@@ -30,6 +29,15 @@ class SearchCachesController < ApplicationController
   	    parse_response =  JSON.parse(response)
   	  end
 #################### 翻訳API おわり ####################################################################################
+      search_cache = SearchCache.new(searchcache_params)
+      search_cache.definition = definition
+      if search_cache.save
+        #画像API挿入箇所
+        redirect_to new_wordbook_path
+      else
+        redirect_to root_path
+      end
+      }
 
 
 #################### 語源　スクレイピング ###################################################################################
@@ -45,19 +53,6 @@ class SearchCachesController < ApplicationController
     # #クラス名entry-content 内の2番目のpタグを指定
     # origin = origin_content.inner_text
 #################### 語源　スクレイピング ###################################################################################
-
-
-      search_cache = SearchCache.new(searchcache_params)
-  	  search_cache.definition = definition
-      binding.pry
-  	  if search_cache.save
-        #画像API挿入箇所
-        redirect_to new_wordbook_path
-      else
-        redirect_to root_path
-  	  end
-}
-
 
 
 
