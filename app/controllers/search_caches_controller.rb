@@ -29,8 +29,24 @@ class SearchCachesController < ApplicationController
   	    parse_response =  JSON.parse(response)
   	  end
 #################### 翻訳API おわり ####################################################################################
+
+################### 語源　スクレイピング ###################################################################################
+      agent = Mechanize.new
+      searched_page = agent.get('http://gogen-wisdom.hatenablog.com/search?q=' + word)
+      # getメソッドを使って submit結果表示ページ内のリンクを全取得
+      entry_title_links = searched_page.search('h1[2] a')
+      #page内2番目以降のh1要素のa要素を全取得(1番目はヘッダー内)
+      click_url = entry_title_links[0].attributes['href'].value
+      #クリックするurlを取得 (entry_title_linksの０番目のattributes内href内value値を取得)
+      click_page = searched_page.link_with(href: click_url).click
+      origin_content = click_page.search('.entry-content p')[1]
+      #クラス名entry-content 内の2番目のpタグを指定
+      origin = origin_content.inner_text
+################### 語源　スクレイピング　おわり ###################################################################################
+
       search_cache = SearchCache.new(searchcache_params)
       search_cache.definition = definition
+      search_cache.origin = origin
       if search_cache.save
         #画像API挿入箇所
         applicable_searchcache = SearchCache.find_by(word: word)
@@ -40,22 +56,6 @@ class SearchCachesController < ApplicationController
         redirect_to root_path
       end
       }
-
-
-#################### 語源　スクレイピング ###################################################################################
-    # agent = Mechanize.new
-    # searched_page = agent.get('http://gogen-wisdom.hatenablog.com/search?q=' + word)
-    # # getメソッドを使って submit結果表示ページ内のリンクを全取得
-    # entry_title_links = searched_page.search('h1[2] a')
-    # #page内2番目以降のh1要素のa要素を全取得(1番目はヘッダー内)
-    # click_url = entry_title_links[0].attributes['href'].value
-    # #クリックするurlを取得 (entry_title_linksの０番目のattributes内href内value値を取得)
-    # click_page = searched_page.link_with(href: click_url).click
-    # origin_content = click_page.search('.entry-content p')[1]
-    # #クラス名entry-content 内の2番目のpタグを指定
-    # origin = origin_content.inner_text
-#################### 語源　スクレイピング ###################################################################################
-
 
 
 # 	  	########## 画像API ###############################################################
