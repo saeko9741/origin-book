@@ -1,7 +1,7 @@
 class WordbooksController < ApplicationController
 
 	def new
-		
+		@search_cache = SearchCache.find(params[:search_cache_id])
 	end
 	def index
 		

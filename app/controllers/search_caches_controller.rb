@@ -33,7 +33,9 @@ class SearchCachesController < ApplicationController
       search_cache.definition = definition
       if search_cache.save
         #画像API挿入箇所
-        redirect_to new_wordbook_path
+        applicable_searchcache = SearchCache.find_by(word: word)
+        #検索された単語に一致するレコードを取得
+        redirect_to new_wordbook_path(search_cache_id: applicable_searchcache)
       else
         redirect_to root_path
       end

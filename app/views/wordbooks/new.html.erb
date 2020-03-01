@@ -1,5 +1,4 @@
 <div>
-	<% @image_options.first(5).each do |image_option| %>
-	<%= image_tag image_option %>
-	<% end %>
+	<%= @search_cache.word %>
+	<%= @search_cache.definition %>
 </div>
