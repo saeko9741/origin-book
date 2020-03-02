@@ -1,15 +1,17 @@
 <div>
 	<div>
-		<%=form_with model: @search_cache, url: wordbooks_path do |f|%>
+		<%= form_with model: @wordbook, url: wordbooks_path, method: :post, local: true do |f|%>
+		  <%= hidden_field_tag :search_cache_id, params[:search_cache_id] %>
 		  <%= f.label :検索した英単語 %>
-		  <%= @search_cache.word%><br>
+		  <%= @search_cache.word %><br>
+		  <%= f.hidden_field :word, :value => @search_cache.word %>
 		  <%= f.label :意味 %>
-		  <%= f.text_field :definition %><br>
+		  <%= f.text_field :meaning, :value =>@search_cache.definition %><br>
 		  <%= f.label :語源 %>
-		  <%= f.text_area :origin, :size=>"100x2" %><br>
+		  <%= f.text_area :origin, :value =>@search_cache.origin, :size=>"100x2" %><br>
 			  <% @images.each do |image| %>
 			  <%= image_tag image.word_image %>
-			  <%= f.radio_button :image, image.id %>
+			  <%= f.radio_button :image_id, image.id %>
 			  <% end %><br><br>
 		  <%= f.submit "保存", class: "btn btn-default" %>
 		<% end %>
