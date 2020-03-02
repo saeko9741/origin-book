@@ -1,5 +1,5 @@
 <div>
-	<div align="">
+	<div>
 		<%=form_with model: @search_cache, url: wordbooks_path do |f|%>
 		  <%= f.label :検索した英単語 %>
 		  <%= @search_cache.word%><br>
@@ -8,6 +8,11 @@
 		  <%= f.label :語源 %>
 		  <%= f.text_area :origin, :size=>"100x2" %><br>
 		  <%= f.submit "保存", class: "btn btn-default" %>
+		<% end %>
+	</div>
+	<div>
+		<% @images.each do |image| %>
+		<%= image_tag image.word_image %>
 		<% end %>
 	</div>
 </div>

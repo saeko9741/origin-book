@@ -49,6 +49,30 @@ class SearchCachesController < ApplicationController
       search_cache.origin = origin
       if search_cache.save
         #画像API挿入箇所
+################ 画像API ###############################################################
+      image_url = 'https://pixabay.com/api/?key=' + ENV['IMAGE_API_KEY'] + '&q='+ word +'&pretty=true'
+      image_uri = URI(image_url)
+      # ただの文字列ではなくurlと認識させる？
+      response = Net::HTTP.get(image_uri)
+      # 検索の結果を格納？
+      parsed_response = JSON.parse(response)
+      # JSONからRubyのハッシュをつくる
+      word_image_hits = parsed_response["hits"]
+      # ハッシュの中のhits(key)で要素(value)を配列で取得
+      word_image_options = word_image_hits.map {|image| image["previewURL"]}
+      # 配列内のハッシュが配列の要素となり、previewURL(key)を元にurlを要素分繰り返し処理し、配列で変数に格納される
+      word_images = word_image_options.first(5)
+      # 検索結果の始めから5番目まで入れる
+##################################################################################
+
+      # imageを保存
+      word_images.each do |word_image|
+        image = Image.new
+        image.search_cache_id = search_cache.id
+        image.word_image = word_image
+        image.save
+      end
+
         applicable_searchcache = SearchCache.find_by(word: word)
         #検索された単語に一致するレコードを取得
         redirect_to new_wordbook_path(search_cache_id: applicable_searchcache)
@@ -57,31 +81,6 @@ class SearchCachesController < ApplicationController
       end
       }
 
-
-# 	  	########## 画像API ###############################################################
-# 			image_url = 'https://pixabay.com/api/?key=' + ENV['IMAGE_API_KEY'] + '&q='+ word +'&pretty=true'
-# 			image_uri = URI(image_url)
-# 			# ただの文字列ではなくurlと認識させる？
-# 			response = Net::HTTP.get(image_uri)
-# 			# 検索の結果を格納？
-# 			parsed_response = JSON.parse(response)
-# 			# JSONからRubyのハッシュをつくる
-# 			word_image_hits = parsed_response["hits"]
-# 			# ハッシュの中のhits(key)で要素(value)を配列で取得
-# 			word_image_options = word_image_hits.map {|image| image["previewURL"]}
-# 			# 配列内のハッシュが配列の要素となり、previewURL(key)を元にurlを要素分繰り返し処理し、配列で変数に格納される
-# 			word_image = word_image_options.first(5)
-# 			############################################################################
-# binding.pry
-# 			image = Image.new
-# 			image.search_cache_id = search_cache.id
-# 			image.word_image = word_image
-# 			image.save
-
-#   		redirect_to new_wordbook_path
-#   	else
-#   		redirect_to root_path
-#   	end
   end
   private
   def searchcache_params

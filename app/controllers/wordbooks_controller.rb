@@ -2,6 +2,7 @@ class WordbooksController < ApplicationController
 
 	def new
 		@search_cache = SearchCache.find(params[:search_cache_id])
+		@images = Image.where(search_cache_id: params[:search_cache_id])
 	end
 	def index
 		
