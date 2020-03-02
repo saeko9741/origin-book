@@ -7,12 +7,11 @@
 		  <%= f.text_field :definition %><br>
 		  <%= f.label :語源 %>
 		  <%= f.text_area :origin, :size=>"100x2" %><br>
+			  <% @images.each do |image| %>
+			  <%= image_tag image.word_image %>
+			  <%= f.radio_button :image, image.id %>
+			  <% end %><br><br>
 		  <%= f.submit "保存", class: "btn btn-default" %>
-		<% end %>
-	</div>
-	<div>
-		<% @images.each do |image| %>
-		<%= image_tag image.word_image %>
 		<% end %>
 	</div>
 </div>
