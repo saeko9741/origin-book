@@ -37,7 +37,7 @@ class WordbooksController < ApplicationController
 	end
 	private
 	def wordbook_params
-	  params.require(:wordbook).permit(:word, :meaning, :origin, :image_id)
+	  params.require(:wordbook).permit(:word, :meaning, :origin, :image_id, :my_image)
 	  # definition, origin必要か
 	end
 end
