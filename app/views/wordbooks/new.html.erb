@@ -10,8 +10,8 @@
 		  <%= f.label :語源 %>
 		  <%= f.text_area :origin, :value =>@search_cache.origin, :size=>"100x2" %><br>
 			  <% @images.each do |image| %>
-			  <%= image_tag image.word_image %>
-			  <%= f.radio_button :image_id, image.id %>
+				  <%= f.radio_button :image_id, image.id %>
+				  <%= image_tag image.word_image  %>
 			  <% end %><br><br>
 		  <%= f.submit "保存", class: "btn btn-default" %>
 		<% end %>
