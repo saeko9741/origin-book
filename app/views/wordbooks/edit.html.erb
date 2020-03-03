@@ -1,0 +1,16 @@
+<div class="row">
+	<div class="col-md-6">
+		<h2>保存した単語</h2>
+		<%= form_with model: @wordbook, local: true do |f|%>
+		  <%= f.label :単語 %>
+		  <%= @wordbook.word %><br>
+		  <%= f.label :意味 %>
+		  <%= f.text_field :meaning, :value =>@wordbook.meaning, :size=>"50x5" %><br>
+		  <%= f.label :語源 %>
+		  <%= f.text_area :origin, :value =>@wordbook.origin, :size=>"50x5" %><br>
+		  <%= f.label :画像 %>
+			<%= image_tag @wordbook.image.word_image  %><br><br>
+		  <%= f.submit "編集", class: "btn btn-default" %>
+		<% end %>
+	</div>
+</div>

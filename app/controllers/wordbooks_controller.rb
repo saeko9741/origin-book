@@ -21,11 +21,18 @@ class WordbooksController < ApplicationController
 	end
 	def edit
 		@wordbook = Wordbook.find(params[:id])
+		@wordbook.user_id = current_user.id
 	end
 	def update
-		
+		@wordbook = Wordbook.find(params[:id])
+		@wordbook.user_id = current_user.id
+		if @wordbook.update(wordbook_params)
+			redirect_to wordbooks_path
+		else
+			render "edit"
+		end
 	end
-	def destory
+	def destroy
 		
 	end
 	private
