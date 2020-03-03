@@ -16,7 +16,11 @@
 					<tr>
 						<td><%= wordbook.word %></td>
 						<td><%= wordbook.origin %></td>
-						<td><%= image_tag wordbook.image.word_image %></td>
+						<% if wordbook.my_image.present? %>
+							<td><%= attachment_image_tag wordbook, :my_image %></td>
+						<% else %>
+						  <td><%= image_tag wordbook.image.word_image %></td>
+						<% end %>
 						<td><%= wordbook.meaning %></td>
 						<td><%=link_to "編集する", edit_wordbook_path(wordbook.id), class: "btn btn-primary" %></td>
 					</tr>
