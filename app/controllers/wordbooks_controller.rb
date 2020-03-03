@@ -20,7 +20,7 @@ class WordbooksController < ApplicationController
 		end
 	end
 	def edit
-		
+		@wordbook = Wordbook.find(params[:id])
 	end
 	def update
 		

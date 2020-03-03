@@ -14,11 +14,11 @@
 			<tbody>
 				<% @wordbooks.each do |wordbook| %>
 					<tr>
-						<td><%= wordbook.word%></td>
-						<td><%= wordbook.origin%></td>
+						<td><%= wordbook.word %></td>
+						<td><%= wordbook.origin %></td>
 						<td><%= image_tag wordbook.image.word_image %></td>
-						<td><%= wordbook.meaning%></td>
-						<td></td>
+						<td><%= wordbook.meaning %></td>
+						<td><%=link_to "編集する", edit_wordbook_path(wordbook.id), class: "btn btn-primary" %></td>
 					</tr>
 				<% end %>
 			</tbody>
