@@ -35,7 +35,9 @@ class WordbooksController < ApplicationController
 		end
 	end
 	def destroy
-		
+		@wordbook = Wordbook.find(params[:id])
+		@wordbook.destroy
+		redirect_to wordbooks_path
 	end
 	private
 	def wordbook_params
