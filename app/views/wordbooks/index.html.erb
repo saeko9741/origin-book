@@ -22,8 +22,8 @@
 						  <td class="col-md-1"><%= image_tag wordbook.image.word_image %></td>
 						<% end %>
 						<td class="col-md-2"><%= wordbook.meaning %></td>
-						<td class="col-md-1"><%=link_to "編集する", edit_wordbook_path(wordbook.id), class: "btn btn-primary" %><br><br>
-							<%=link_to "削除する", wordbook_path(wordbook.id), class: "btn btn-danger", method: :delete,"data-confirm" => "本当に削除しますか?" %>
+						<td class="col-md-1" align="center"><%=link_to "編集", edit_wordbook_path(wordbook.id), class: "btn btn-primary btn-sm" %><br><br>
+							<%=link_to "削除", wordbook_path(wordbook.id), class: "btn btn-danger btn-sm", method: :delete,"data-confirm" => "本当に削除しますか?" %>
 						</td>
 					</tr>
 				<% end %>
