@@ -9,9 +9,13 @@
 		  <%= f.label :語源 %>
 		  <%= f.text_area :origin, :value =>@wordbook.origin, :size=>"50x5" %><br>
 		  <%= f.label :画像 %>
-			<%= image_tag @wordbook.image.word_image  %><br>
-			<%= f.label :画像を選択 %>
-			<%= f.attachment_field :my_image %>
+		  <% if @wordbook.my_image.present? %>
+		    <%= attachment_image_tag @wordbook, :my_image,  :fill, 150, 100 %><br>
+			<% else %>
+				<%= image_tag @wordbook.image.word_image  %><br>
+			<% end %>
+				<%= f.label :画像を選択 %>
+				<%= f.attachment_field :my_image %><br>
 		  <%= f.submit "編集", class: "btn btn-default" %>
 		<% end %>
 	</div>
