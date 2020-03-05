@@ -34,19 +34,27 @@ class SearchCachesController < ApplicationController
 ### 語源　スクレイピング ###
         agent = Mechanize.new
         # getメソッドを使って submit結果表示ページ内のリンクを全取得
-        searched_page = agent.get('http://gogen-wisdom.hatenablog.com/search?q=' + word)
-        #page内2番目以降のh1要素のa要素を全取得(1番目はヘッダー内)
-        entry_title_links = searched_page.search('h1[2] a')
-        #クリックするurlを取得 (entry_title_linksの０番目のattributes内href内value値を取得)
-        click_url = entry_title_links[0].attributes['href'].value
-        click_page = searched_page.link_with(href: click_url).click
-        #クラス名entry-content 内の2番目のpタグを指定
-        origin_content = click_page.search('.entry-content p')[1]
-        origin = origin_content.inner_text
+        begin
+        searched_page = agent.get("http://gogen-wisdom.hatenablog.com/search?q=#{word}")
+        rescue => error
+        end
+        if searched_page.present?
+          #page内2番目以降のh1要素のa要素を全取得(1番目はヘッダー内)
+          entry_title_links = searched_page.search('h1[2] a')
+          #クリックするurlを取得 (entry_title_linksの０番目のattributes内href内value値を取得)
+          click_url = entry_title_links[0].attributes['href'].value
+          click_page = searched_page.link_with(href: click_url).click
+          #クラス名entry-content 内の2番目のpタグを指定
+          origin_content = click_page.search('.entry-content p')[1]
+          origin = origin_content.inner_text
+        end
 ### 語源　スクレイピング　おわり ###
         #単語、意味、語源を保存
         search_cache = SearchCache.new(searchcache_params)
         search_cache.definition = definition
+        if search_cache.origin.blank?
+          origin = "語源はありません"
+        end
         search_cache.origin = origin
         if search_cache.save
 ### 画像API ###
