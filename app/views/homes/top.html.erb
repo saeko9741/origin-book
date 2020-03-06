@@ -1,6 +1,6 @@
 <div>
 	<div align="center">
-		<%=form_with model: @search_cache do |f|%>
+		<%=form_with model: @search_cache, local: true do |f|%>
 		  <%= f.label :検索したい英単語 %><br>
 		  <%= f.text_field :word %>
 		  <%= f.submit "検索", class: "btn btn-default" %>
