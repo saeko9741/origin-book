@@ -23,7 +23,7 @@ class WordbooksController < ApplicationController
 		@wordbook = Wordbook.find(params[:id])
 		@wordbook.user_id = current_user.id
 		@search_cache = SearchCache.find_by(word: @wordbook.word)
-		@images = Image.where(search_cache_id: params[:id])
+		@images = Image.where(search_cache_id: @search_cache.id)
 	end
 	def update
 		@wordbook = Wordbook.find(params[:id])
