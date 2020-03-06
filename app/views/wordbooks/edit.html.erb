@@ -5,9 +5,9 @@
 		  <%= f.label :単語 %>
 		  <%= @wordbook.word %><br>
 		  <%= f.label :意味 %>
-		  <%= f.text_field :meaning, :value => @wordbook.meaning, :size=>"50x5" %><br>
+		  <%= f.text_field :meaning, value: @wordbook.meaning, size: "50x5" %><br>
 		  <%= f.label :語源 %>
-		  <%= f.text_area :origin, :value => @wordbook.origin, :size=>"50x5" %><br>
+		  <%= f.text_area :origin, value: @wordbook.origin, size: "50x5" %><br>
 		  <%= f.label :画像 %>
 		  <% if @wordbook.my_image.present? %>
 		    <%= attachment_image_tag @wordbook, :my_image,  :fill, 150, 100 %><br><br>
@@ -31,12 +31,12 @@
 		  <%= f.label :単語 %>
 		  <%= @search_cache.word %><br>
 		  <%= f.label :意味 %>
-		  <%= f.text_field :meaning, :value => @search_cache.definition, :size=>"50x5", disabled: true %><br>
+		  <%= f.text_field :meaning, value: @search_cache.definition, size: "50x5", disabled: true %><br>
 		  <%= f.label :語源 %>
-		  <%= f.text_area :origin, :value => @search_cache.origin, :size=>"50x5", disabled: true %><br>
+		  <%= f.text_area :origin, value: @search_cache.origin, size: "50x5", disabled: true %><br>
 		  <%= f.label :画像 %>
 	      <% @images.each do |image| %>
-	    	  <%= image_tag image.word_image, :size =>'100x100'  %>
+	    	  <%= image_tag image.word_image, size: '100x100'  %>
 	      <% end %>
 		<% end %>
 	</div>
