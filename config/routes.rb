@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'homes#top'
   get 'homes/about' => 'homes#about'
-  resources :wordbooks,except: [:show]
-  resources :search_caches,only: [:create]
+  resources :wordbooks, except: [:show]
+  resources :search_caches, only: [:create]
 end
