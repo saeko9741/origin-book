@@ -17,7 +17,7 @@ class SearchCachesController < ApplicationController
         applicable_searchcache = SearchCache.find_by(word: word)
         if applicable_searchcache == nil
   ### 翻訳API ###
-        	translate_url = 'https://translation.googleapis.com/language/translate/v2?key=' + ENV['TRANSLATE_API_KEY']
+        	translate_url = "https://translation.googleapis.com/language/translate/v2?key=#{ENV['TRANSLATE_API_KEY']}"
         	payload = {
         	  q: word,
         	  target: 'ja',
@@ -64,7 +64,7 @@ class SearchCachesController < ApplicationController
             search_cache.origin = origin
             if search_cache.save
     ### 画像API ###
-              image_url = 'https://pixabay.com/api/?key=' + ENV['IMAGE_API_KEY'] + '&q='+ word +'&pretty=true'
+              image_url = "https://pixabay.com/api/?key=#{ENV['IMAGE_API_KEY']}&q=#{word}"
               # ただの文字列ではなくurlと認識させる？
               image_uri = URI(image_url)
               # 検索の結果を格納
