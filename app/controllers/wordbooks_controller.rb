@@ -28,6 +28,11 @@ class WordbooksController < ApplicationController
 	def update
 		@wordbook = Wordbook.find(params[:id])
 		@wordbook.user_id = current_user.id
+		if params[:wordbook][:image_id] == "0"
+			params[:wordbook].delete(:image_id)
+		else
+			@wordbook.my_image  = nil
+		end
 		if @wordbook.update(wordbook_params)
 			redirect_to wordbooks_path
 		else

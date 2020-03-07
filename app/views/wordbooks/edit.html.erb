@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-6">
-		<h2>保存した単語</h2>
+		<h2>編集する単語</h2>
 		<%= form_with model: @wordbook, local: true do |f|%>
 		  <%= f.label :単語 %>
 		  <%= @wordbook.word %><br>
@@ -13,15 +13,26 @@
 		    <%= attachment_image_tag @wordbook, :my_image,  :fill, 150, 100 %><br><br>
 			  <% else %>
 				<%= image_tag @wordbook.image.word_image %><br>
-			<% end %>
-				<%= f.label :編集する画像を選択 %>
-				<!-- アップロード画像選択 -->
-				<%= f.attachment_field :my_image %><br>
-		    <% @images.each do |image| %>
+			<% end %><br>
+			<!-- 画像の編集 -->
+			<%= f.label :編集する画像を選択する %><br>
+		  <% @images.each do |image| %>
 		  	  <%= f.radio_button :image_id, image.id %>
-		  	  <%= image_tag image.word_image, :size => '70x70'  %>
-		    <% end %><br>
-		  <%= f.submit "編集", class: "btn btn-default" %>
+		  	  <%= image_tag image.word_image, size: '70x70'  %>
+		  <% end %><br><br>
+		  <% if @wordbook.my_image.present? %>
+			    <%= f.radio_button :image_id, "0" %>
+			    <%= f.label :画像を変更しない %>
+			    <%= attachment_image_tag @wordbook, :my_image,  :fill, 150, 100  %><br><br>
+			    <!-- アップロード画像選択 -->
+			    <%= f.label :新たに画像を選択し編集する %>
+			    <%= f.attachment_field :my_image %><br>
+			<% else %>
+			     <%= f.label :編集する画像を選択 %><br>
+			     <%= f.radio_button :image_id, "0" %>
+           <%= f.attachment_field :my_image %><br>
+			<% end %>
+			  <%= f.submit "編集", class: "btn btn-default" %>
 		<% end %>
 	</div>
 	<!-- 検索結果を表示 -->
