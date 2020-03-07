@@ -9,13 +9,14 @@ class SearchCachesController < ApplicationController
     word = params[:search_cache][:word]
     if user_signed_in?
       #検索された単語がwordbookテーブルにあるかどうか
-      applicable_wordbook = Wordbook.find_by(word: word)
+      applicable_wordbook = current_user.wordbooks.find_by(word: word)
       if applicable_wordbook.present?
         redirect_to edit_wordbook_path(applicable_wordbook.id)
-      else
+      end
+    end
         #検索された単語がsearchcacheテーブルにあるかどうか
         applicable_searchcache = SearchCache.find_by(word: word)
-        if applicable_searchcache == nil
+        if applicable_searchcache.nil?
   ### 翻訳API ###
         	translate_url = "https://translation.googleapis.com/language/translate/v2?key=#{ENV['TRANSLATE_API_KEY']}"
         	payload = {
@@ -25,7 +26,7 @@ class SearchCachesController < ApplicationController
         	}
         	header = {:content_type=>"text/html; charset=utf-8"}
           #APIにリクエストを送信
-        	RestClient.post(translate_url, payload.to_json, header) { |response, request, result|
+        	RestClient.post(translate_url, payload.to_json, header) do |response, request, result|
         	  case response.code
         	  when 200
         	    # 成功時の処理
@@ -78,7 +79,6 @@ class SearchCachesController < ApplicationController
               # 検索結果の始めから5番目まで入れる
               word_images = word_image_options.first(5)
     ### 画像API おわり###
-
             # imageを保存
               word_images.each do |word_image|
                 image = Image.new
@@ -94,12 +94,10 @@ class SearchCachesController < ApplicationController
             else
               redirect_to root_path
             end
-          }
+          end
         else #search_cache内に単語があった場合
           redirect_to new_wordbook_path(search_cache_id: applicable_searchcache)
         end
-      end
-    end
   end
 
   private
