@@ -1,14 +1,15 @@
-<div>
-	<div>
+<div class="row">
+	<div class="">
 		<%= form_with model: @wordbook, url: wordbooks_path, method: :post, local: true do |f| %>
 		  <%= hidden_field_tag :search_cache_id, params[:search_cache_id] %>
-		  <%= f.label :検索した英単語 %>
+		  <%= f.label :単語 %>
 		  <%= @search_cache.word %><br>
 		  <%= f.hidden_field :word, value: @search_cache.word %>
 		  <%= f.label :意味 %>
-		  <%= f.text_field :meaning, value: @search_cache.definition %><br>
+		  <%= f.text_field :meaning, value: @search_cache.definition, size: "101x1" %><br>
 		  <%= f.label :語源 %>
-		  <%= f.text_area :origin, value: @search_cache.origin, size: "100x2" %><br>
+		  <%= f.text_area :origin, value: @search_cache.origin, size: "100x5" %><br><br>
+		  <%= f.label :画像を一つ選択 %><br>
 			  <% @images.each do |image| %>
 				  <%= f.radio_button :image_id, image.id %>
 				  <%= image_tag image.word_image  %>
