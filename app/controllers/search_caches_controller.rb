@@ -51,9 +51,16 @@ class SearchCachesController < ApplicationController
               #クリックするurlを取得 (entry_title_linksの０番目のattributes内href内value値を取得)
               click_url = entry_title_links[0].attributes['href'].value
               click_page = searched_page.link_with(href: click_url).click
-              #クラス名entry-content 内の2番目のpタグを指定
-              origin_content = click_page.search('.entry-content p')[1]
-              origin = origin_content.inner_text
+              origin = ""
+              origin_contents = click_page.search('.entry-content p')
+              origin_contents.each do |origin_content|
+                next if origin_content.inner_text.blank?
+                  if origin_content.inner_text.include?("語")
+                    origin = origin_content.inner_text
+                    break
+                    #inner-textにに語が含まれていたら終了
+                  end
+              end
             end
     ### 語源　スクレイピング　おわり ###
             #単語、意味、語源を保存
@@ -65,6 +72,7 @@ class SearchCachesController < ApplicationController
             search_cache.origin = origin
             if search_cache.save
     ### 画像API ###
+
               image_url = "https://pixabay.com/api/?key=#{ENV['IMAGE_API_KEY']}&q=#{word}"
               # ただの文字列ではなくurlと認識させる？
               image_uri = URI(image_url)
@@ -78,14 +86,27 @@ class SearchCachesController < ApplicationController
               word_image_options = word_image_hits.map {|image| image["previewURL"]}
               # 検索結果の始めから5番目まで入れる
               word_images = word_image_options.first(5)
-    ### 画像API おわり###
-            # imageを保存
-              word_images.each do |word_image|
+      ### 画像API おわり###
+              # imageを保存
+              if word_images.present?
+                word_images.each do |word_image|
+                  image = Image.new
+                  image.search_cache_id = search_cache.id
+                  image.word_image = word_image
+                  # if word_image.empty?
+                  #   imege.word_image =
+                  # else
+                  #   image.word_image = word_image
+                  # end
+                  image.save
+                end
+              else
                 image = Image.new
                 image.search_cache_id = search_cache.id
-                image.word_image = word_image
+                image.word_image = ""
                 image.save
               end
+              # end
             #if文
               #検索された単語に一致するレコードを取得
               applicable_searchcache = SearchCache.find_by(word: word)

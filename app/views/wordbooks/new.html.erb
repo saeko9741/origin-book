@@ -9,11 +9,15 @@
 		  <%= f.text_field :meaning, value: @search_cache.definition, size: "101x1" %><br>
 		  <%= f.label :語源 %>
 		  <%= f.text_area :origin, value: @search_cache.origin, size: "100x5" %><br><br>
-		  <%= f.label :画像を一つ選択 %><br>
-			  <% @images.each do |image| %>
-				  <%= f.radio_button :image_id, image.id %>
-				  <%= image_tag image.word_image  %>
-			  <% end %><br><br>
+		  <% if @images[0].word_image.present? %>
+			  <%= f.label :画像を一つ選択 %><br>
+				  <% @images.each do |image| %>
+					  <%= f.radio_button :image_id, image.id %>
+					  <%= image_tag image.word_image  %>
+				  <% end %><br><br>
+		  <% else %>
+		    <%= f.hidden_field :image_id, value: @images %>
+			<% end %>
 		  <%= f.submit "保存", class: "btn btn-default" %>
 		<% end %>
 	</div>
