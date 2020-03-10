@@ -15,10 +15,82 @@
 					  <%= f.radio_button :image_id, image.id %>
 					  <%= image_tag image.word_image  %>
 				  <% end %><br><br>
-		  <% else %>
-		    <%= f.hidden_field :image_id, value: @images %>
 			<% end %>
-		  <%= f.submit "保存", class: "btn btn-default" %>
+			<% if user_signed_in? %>
+			  <%= f.submit "保存", class: "btn btn-default" %>
+		  <% else %>
+			  <div class="sign_button sign_up_button">新規登録</div>
+			  <div class="sign_button sign_in_button">ログイン</div>
+			  <div class="sign_modal_wrapper"></div>
+			  <div class="sign_modal">
+			  	<span class="wrapper"><%= "✖" %></span>
+			    <div class="sign_up_modal sign_modal_content">
+			      <h2>新規登録フォーム</h2>
+			      <form class="new_user" id="new_user" action="/users" accept-charset="UTF-8" method="post">
+			      	<input name="utf8" type="hidden" value="✓">
+			      	<input type="hidden" name="authenticity_token" value="7U47i6a1KrRjWFIpirmxqtNucjG3174hfUay5k+ynJQiDG9IlD4TROh2CWtnoFYA/GvAQRgV+DqyNBuR+MoYrA==">
+			      	<input name="modal" type="hidden" value="0">
+			      	<input type="hidden" name="search_cache_id" value=@search_cache.id>
+
+			      	<div class="field">
+			      	  <label for="user_name">Name</label><br>
+			      	  <input autofocus="autofocus" class="name" type="text" name="user[name]" id="user_name">
+			      	</div>
+
+			      	<div class="field">
+			      	  <label for="user_email">Email</label><br>
+			      	  <input autofocus="autofocus" autocomplete="email" type="email" value="" name="user[email]" id="user_email">
+			      	</div>
+
+			      	<div class="field">
+			      	  <label for="user_password">Password</label>
+			      	  <em>(6 characters minimum)</em>
+			      	  <br>
+			      	  <input autocomplete="new-password" type="password" name="user[password]" id="user_password">
+			      	</div>
+
+			      	<div class="field">
+			      	  <label for="user_password_confirmation">Password confirmation</label><br>
+			      	  <input autocomplete="new-password" type="password" name="user[password_confirmation]" id="user_password_confirmation">
+			      	</div>
+
+			      	<div class="actions">
+			      	  <input type="submit" name="commit" value="Sign up" data-disable-with="Sign up">
+			      	</div>
+			      </form>
+			    </div>
+
+			    <div class="sign_in_modal sign_modal_content">
+			      <h2>ログインフォーム</h2>
+			      <form class="new_user" id="new_user" action="/users/sign_in" accept-charset="UTF-8" method="post">
+			      	<input name="utf8" type="hidden" value="✓">
+			      	<input type="hidden" name="authenticity_token" value="XVgTEXmFyXegr+apxHht0JO0LVAum6/VaDeP3GgYRv4Nw7aJX+uM2qLXoHio9hg9qYxMcUfP7c2Qn9URy1xn5Q==">
+			      	<input name="modal" type="hidden" value="0">
+			      	<input type="hidden" name="search_cache_id" value=<%= @search_cache.id %>>
+
+				        <div class="field">
+				          <label for="user_name">Name</label><br>
+				          <input autofocus="autofocus" class="name" type="text" name="user[name]" id="user_name">
+				        </div>
+
+				        <div class="field">
+				          <label for="user_password">Password</label><br>
+				          <input autocomplete="current-password" type="password" name="user[password]" id="user_password">
+				        </div>
+
+			          <div class="field">
+			            <input name="user[remember_me]" type="hidden" value="0"><input type="checkbox" value="1" name="user[remember_me]" id="user_remember_me">
+			            <label for="user_remember_me">Remember me</label>
+			          </div>
+
+				        <div class="actions">
+				          <input type="submit" name="commit" value="Log in" data-disable-with="Log in">
+				        </div>
+			      </form>
+			    </div>
+
+			  </div>
+		  <% end %>
 		<% end %>
 	</div>
 </div>

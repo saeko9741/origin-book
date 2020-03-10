@@ -6,4 +6,12 @@ class ApplicationController < ActionController::Base
 	def configure_permitted_parameters
 	  devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])
 	end
+  # ログイン後のリダイレクト先
+  def after_sign_in_path_for(resource_or_scope)
+    if params[:modal] == "0"
+        new_wordbook_path(search_cache_id: params[:search_cache_id])
+    else
+        root_path
+    end
+  end
 end

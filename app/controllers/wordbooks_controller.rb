@@ -14,6 +14,7 @@ class WordbooksController < ApplicationController
 		if wordbook.save
 			redirect_to wordbooks_path
 		else
+			@wordbook = Wordbook.new
 			@search_cache = SearchCache.find(params[:search_cache_id])
 			@images = Image.where(search_cache_id: params[:search_cache_id])
 			render "new"
