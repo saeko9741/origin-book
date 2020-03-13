@@ -64,13 +64,13 @@ class SearchCachesController < ApplicationController
             end
     ### 語源　スクレイピング　おわり ###
             #単語、意味、語源を保存
-            search_cache = SearchCache.new(searchcache_params)
-            search_cache.definition = definition
+            @search_cache = SearchCache.new(searchcache_params)
+            @search_cache.definition = definition
             if origin.blank?
               origin = "語源を表示できませんでしたが、調べてみましょう！"
             end
-            search_cache.origin = origin
-            if search_cache.save
+            @search_cache.origin = origin
+            if @search_cache.save
     ### 画像API ###
 
               image_url = "https://pixabay.com/api/?key=#{ENV['IMAGE_API_KEY']}&q=#{word}"
@@ -91,7 +91,7 @@ class SearchCachesController < ApplicationController
               if word_images.present?
                 word_images.each do |word_image|
                   image = Image.new
-                  image.search_cache_id = search_cache.id
+                  image.search_cache_id = @search_cache.id
                   image.word_image = word_image
                   # if word_image.empty?
                   #   imege.word_image =
@@ -102,7 +102,7 @@ class SearchCachesController < ApplicationController
                 end
               else
                 image = Image.new
-                image.search_cache_id = search_cache.id
+                image.search_cache_id = @search_cache.id
                 image.word_image = ""
                 image.save
               end
@@ -113,7 +113,7 @@ class SearchCachesController < ApplicationController
               #検索された単語に一致するsearch_cachesのid
               redirect_to new_wordbook_path(search_cache_id: applicable_searchcache)
             else
-              redirect_to root_path
+              render 'homes/top'
             end
           end
         else #search_cache内に単語があった場合
