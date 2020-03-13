@@ -1,5 +1,5 @@
-<div class="row">
-	<div class="col-md-6">
+<div class="row" style="width: 100%;">
+	<div class="col-md-6 edit-container">
 		<h2>編集する単語</h2>
 		<%= form_with model: @wordbook, local: true do |f|%>
 		  <%= f.label :単語 %>
@@ -18,7 +18,7 @@
 			<%= f.label :編集する画像を選択する %><br>
 		  <% @images.each do |image| %>
 		  	  <%= f.radio_button :image_id, image.id %>
-		  	  <%= image_tag image.word_image, size: '70x70'  %>
+		  	  <%= image_tag image.word_image, size: '65x65'  %>
 		  <% end %><br><br>
 		  <% if @wordbook.my_image.present? %>
 			    <%= f.radio_button :image_id, "0" %>
@@ -32,11 +32,11 @@
 			     <%= f.radio_button :image_id, "0" %>
            <%= f.attachment_field :my_image %><br>
 			<% end %>
-			  <%= f.submit "編集", class: "btn btn-default" %>
+			  <%= f.submit "編集", class: "btn btn-grey" %>
 		<% end %>
 	</div>
 	<!-- 検索結果を表示 -->
-	<div class="col-md-6">
+	<div class="col-md-6 search-container">
 		<h2>検索結果</h2>
 		<%= form_with local: true do |f|%>
 		  <%= f.label :単語 %>
@@ -47,7 +47,7 @@
 		  <%= f.text_area :origin, value: @search_cache.origin, size: "50x5", disabled: true %><br>
 		  <%= f.label :画像 %>
 	      <% @images.each do |image| %>
-	    	  <%= image_tag image.word_image, size: '100x100'  %>
+	    	  <%= image_tag image.word_image, size: '65x65'  %>
 	      <% end %>
 		<% end %>
 	</div>
