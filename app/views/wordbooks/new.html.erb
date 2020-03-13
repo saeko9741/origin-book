@@ -1,6 +1,20 @@
 <div class="row">
 	<div class="">
 		<%= form_with model: @wordbook, url: wordbooks_path, method: :post, local: true do |f| %>
+		<!-- エラー文 -->
+			<% if @wordbook.errors.any? %>
+		    <div id="error_explanation">
+		      <h4><%= @wordbook.errors.count %>件のエラーが発生しました。</h4>
+		      <ul>
+		      <% @wordbook.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		      <% if flash[:notice] %>
+		      <li><%= flash[:notice] %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		   <% end %><br><br>
 		  <%= hidden_field_tag :search_cache_id, params[:search_cache_id] %>
 		  <%= f.label :単語 %>
 		  <%= @search_cache.word %><br>
@@ -28,7 +42,7 @@
 	  <div class="sign_modal">
 	  	<span class="wrapper"><%= "✖" %></span>
 	    <div class="sign_up_modal sign_modal_content">
-	      <h2>新規登録フォーム</h2><br>
+	      <h2>SIGN UP</h2><br>
 	      <form class="new_user" id="new_user" action="/users" accept-charset="UTF-8" method="post">
 	      	<input name="utf8" type="hidden" value="✓">
 	      	<input type="hidden" name="authenticity_token" value="7U47i6a1KrRjWFIpirmxqtNucjG3174hfUay5k+ynJQiDG9IlD4TROh2CWtnoFYA/GvAQRgV+DqyNBuR+MoYrA==">
@@ -64,8 +78,8 @@
 	    </div>
 
 	    <div class="sign_in_modal sign_modal_content">
-	      <h2>ログインフォーム</h2><br>
-	      <form class="new_user" id="new_user" action="/users/sign_in" accept-charset="UTF-8" method="post">
+	      <h2>LOG IN</h2><br>
+	      <form class="new_user" id="login_user" action="/users/sign_in" accept-charset="UTF-8" method="post">
 	      	<input name="utf8" type="hidden" value="✓">
 	      	<input type="hidden" name="authenticity_token" value="XVgTEXmFyXegr+apxHht0JO0LVAum6/VaDeP3GgYRv4Nw7aJX+uM2qLXoHio9hg9qYxMcUfP7c2Qn9URy1xn5Q==">
 	      	<input type="hidden" name="modal" value="0">
