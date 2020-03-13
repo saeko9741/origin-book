@@ -11,24 +11,28 @@
 
   <body>
     <!--ヘッダーの記述-->
-    <header class="navbar navbar-fixed-top navbar-inverse">
+    <header class="main-header navbar navbar-fixed-top navbar-inverse" style="height: 80px; background-color: #5f5f5f;">
       <script src="https://kit.fontawesome.com/f51303c114.js" crossorigin="anonymous"></script>
       <div class="container">
 
         <nav>
           <ul class="nav navbar-nav navbar-left">
             <!--if文でサインインとアウト時の表示を変更-->
+            <li>
+              <%= link_to root_path do %>
+                <%= image_tag "logo.jpg", id: "logo" %>
+              <% end %>
+            </li>
             <% if user_signed_in? %>
-            <li><%= link_to ' ORIGIN BOOK', root_path %></li>
-            <li><%= link_to ' ABOUT', homes_about_path, class: 'glyphicon glyphicon-link about' %></li>
-            <li><%= link_to ' WORDBOOK', wordbooks_path, class: 'glyphicon glyphicon-book books' %></li>
-            <li><%= link_to ' LOGOUT', destroy_user_session_path, method: :delete, class: 'glyphicon glyphicon-log-out logout' %></li>
+            <li><%= link_to ' ABOUT', homes_about_path %></li>
+            <li><%= link_to ' WORDBOOK', wordbooks_path %></li>
+            <li><%= link_to ' LOGOUT', destroy_user_session_path, method: :delete %></li>
+            <li><%= "ようこそ " %><%= current_user.name %><%= " さん"%></li>
 
             <% else %>
-            <li><%= link_to ' ORIGIN BOOK', root_path %></li>
-            <li><%= link_to ' ABOUT', homes_about_path, class: 'glyphicon glyphicon-link about' %></li>
-            <li><%= link_to ' SIGNUP', new_user_registration_path, class: 'glyphicon glyphicon-edit sign_up' %></li>
-            <li><%= link_to ' LOGIN', new_user_session_path, class: 'glyphicon glyphicon-log-in sign_in' %></li>
+            <li><%= link_to ' ABOUT', homes_about_path %></li>
+            <li><%= link_to ' SIGNUP', new_user_registration_path %></li>
+            <li><%= link_to ' LOGIN', new_user_session_path %></li>
             <li><%= "ようこそゲストさん" %></li>
             <% end %>
           </ul>
@@ -36,10 +40,8 @@
       </div>
     </header>
     <!--ヘッダーの記述-->
-    <div class="container">
-      <div class="row">
-        <%= yield %>
-      </div>
+    <div class="main-wrapper container">
+      <%= yield %>
     </div>
   </body>
 </html>
