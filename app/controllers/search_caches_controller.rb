@@ -12,6 +12,7 @@ class SearchCachesController < ApplicationController
       applicable_wordbook = current_user.wordbooks.find_by(word: word)
       if applicable_wordbook.present?
         redirect_to edit_wordbook_path(applicable_wordbook.id)
+        return
       end
     end
         #検索された単語がsearchcacheテーブルにあるかどうか
@@ -93,21 +94,14 @@ class SearchCachesController < ApplicationController
                   image = Image.new
                   image.search_cache_id = @search_cache.id
                   image.word_image = word_image
-                  # if word_image.empty?
-                  #   imege.word_image =
-                  # else
-                  #   image.word_image = word_image
-                  # end
-                  image.save
+                  image.save!
                 end
               else
                 image = Image.new
                 image.search_cache_id = @search_cache.id
                 image.word_image = ""
-                image.save
+                image.save!
               end
-              # end
-            #if文
               #検索された単語に一致するレコードを取得
               applicable_searchcache = SearchCache.find_by(word: word)
               #検索された単語に一致するsearch_cachesのid

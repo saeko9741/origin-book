@@ -9,12 +9,15 @@ class WordbooksController < ApplicationController
 		@wordbooks = Wordbook.where(user_id: current_user.id)
 	end
 	def create
-		wordbook = Wordbook.new(wordbook_params)
-		wordbook.user_id = current_user.id
-		if wordbook.save
+		@wordbook = Wordbook.new(wordbook_params)
+		@wordbook.user_id = current_user.id
+		image = Image.find_by(search_cache_id: params[:search_cache_id])
+		if image.word_image.empty?
+			@wordbook.image_id = image.id
+		end
+		if @wordbook.save
 			redirect_to wordbooks_path
 		else
-			@wordbook = Wordbook.new
 			@search_cache = SearchCache.find(params[:search_cache_id])
 			@images = Image.where(search_cache_id: params[:search_cache_id])
 			render "new"
