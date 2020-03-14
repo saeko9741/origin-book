@@ -1,24 +1,24 @@
-# README
+# ORIGIN BOOK
+logo.jpg
+英単語を検索した時に、ただ意味を調べるのではなく、単語の「語源」と「画像」も調べることができます。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Features
 
-Things you may want to cover:
+* 英単語検索機能
+検索後「語源」「画像」「意味」が表示されます。
 
-* Ruby version
+* MY単語帳作成機能
+検索結果後にサインアップまたはログインすることで、MY単語帳として登録することができます。
 
-* System dependencies
+# Requirement
 
-* Configuration
+* huga 3.5.2
+* hogehuga 1.0.2
 
-* Database creation
+# Note
 
-* Database initialization
+語源に関しては、サイト「語源の広場」様から引用させていただいております。
 
-* How to run the test suite
+# Author
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Saeko
