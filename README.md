@@ -1,6 +1,6 @@
 # ORIGIN BOOK
 
-[![ORIGIN BOOK](/logo.jpg)](http://13.115.157.168)
+[![logo](https://user-images.githubusercontent.com/58896213/76677958-17ee5e00-6617-11ea-8dcf-7abb1da8358b.jpg)](http://13.115.157.168)
 
 英単語を検索した時に、ただ意味を調べるのではなく、単語の「語源」と「画像」も調べることができます。
 
