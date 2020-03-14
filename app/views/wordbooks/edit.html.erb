@@ -15,7 +15,7 @@
 				<%= image_tag @wordbook.image.word_image %><br>
 			<% end %><br>
 			<!-- 画像の編集 -->
-			<%= f.label :編集する画像を選択する %><br>
+			<%= f.label :検索結果の画像から選択する %><br>
 		  <% @images.each do |image| %>
 		  	  <%= f.radio_button :image_id, image.id %>
 		  	  <%= image_tag image.word_image, size: '65x65'  %>
@@ -28,7 +28,7 @@
 			    <%= f.label :新たに画像を選択し編集する %>
 			    <%= f.attachment_field :my_image %><br>
 			<% else %>
-			     <%= f.label :編集する画像を選択 %><br>
+			     <%= f.label :編集する画像を選択する %><br>
 			     <%= f.radio_button :image_id, "0" %>
            <%= f.attachment_field :my_image %><br>
 			<% end %>

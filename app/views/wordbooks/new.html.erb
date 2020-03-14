@@ -9,9 +9,6 @@
 		      <% @wordbook.errors.full_messages.each do |message| %>
 		        <li><%= message %></li>
 		      <% end %>
-		      <% if flash[:notice] %>
-		      <li><%= flash[:notice] %></li>
-		      <% end %>
 		      </ul>
 		    </div>
 		   <% end %><br><br>
@@ -33,6 +30,7 @@
 			<% if user_signed_in? %>
 			  <%= f.submit "保存", class: "btn btn-default" %>
 		  <% else %>
+		  <h4>新規登録・ログインして保存する</h4>
 			  <div class="sign_button sign_up_button">新規登録</div>
 			  <div class="sign_button sign_in_button">ログイン</div>
 	 		<% end %>
