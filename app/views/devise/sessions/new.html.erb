@@ -3,12 +3,12 @@
   <%= flash[:alert] %>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
-      <%= f.label :name %><br />
+      <%= f.label :name%><br /> <p>(サンプル用 name: test1)</p>
       <%= f.text_field :name, autofocus: true, class: "name" %>
     </div>
 
     <div class="field">
-      <%= f.label :password %><br />
+      <%= f.label :password %><br /> <p> (サンプル用 password: 111111)</p>
       <%= f.password_field :password, autocomplete: "current-password" %>
     </div>
 
