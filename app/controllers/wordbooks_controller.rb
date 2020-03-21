@@ -6,7 +6,8 @@ class WordbooksController < ApplicationController
 		@images = Image.where(search_cache_id: params[:search_cache_id])
 	end
 	def index
-		@wordbooks = Wordbook.where(user_id: current_user.id)
+		@wordbooks = current_user.wordbooks
+		# @wordbooks = Wordbook.where(user_id: current_user.id)
 	end
 	def create
 		@wordbook = Wordbook.new(wordbook_params)
