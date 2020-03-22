@@ -15,10 +15,14 @@
 				<%= image_tag @wordbook.image.word_image %><br>
 			<% end %><br>
 			<!-- 画像の編集 -->
-			<%= f.label :検索結果の画像から選択する %><br>
-		  <% @images.each do |image| %>
-		  	  <%= f.radio_button :image_id, image.id %>
-		  	  <%= image_tag image.word_image, size: '65x65'  %>
+			<% if @images[0].word_image.present? %>
+				<%= f.label :検索結果の画像から選択する %><br>
+			  <% @images.each do |image| %>
+			  	  <%= f.radio_button :image_id, image.id %>
+			  	  <%= image_tag image.word_image, size: '65x65'  %>
+			  <% end %><br><br>
+			<% else %>
+			  <%= image_tag "no_image" %>
 		  <% end %><br><br>
 		  <% if @wordbook.my_image.present? %>
 			    <%= f.radio_button :image_id, "0" %>
@@ -46,9 +50,13 @@
 		  <%= f.label :語源 %>
 		  <%= f.text_area :origin, value: @search_cache.origin, size: "50x5", disabled: true %><br>
 		  <%= f.label :画像 %>
+		  <% if @images[0].word_image.present? %>
 	      <% @images.each do |image| %>
 	    	  <%= image_tag image.word_image, size: '65x65'  %>
 	      <% end %>
+	    <% else %>
+	      <%= image_tag "no_image" %>
+	    <% end %>
 		<% end %>
 	</div>
 </div>
