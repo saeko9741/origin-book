@@ -18,8 +18,10 @@
 						<td><%= wordbook.origin %></td>
 						<% if wordbook.my_image.present? %>
 							<td><%= attachment_image_tag wordbook, :my_image, :fill, 150, 100 %></td>
-						<% else %>
+						<% elsif wordbook.image.word_image.present? %>
 						  <td><%= image_tag wordbook.image.word_image %></td>
+						<% else %>
+						  <td><%= image_tag "no_image.jpg" %></td>
 						<% end %>
 						<td><%= wordbook.meaning %></td>
 						<td><%=link_to "編集", edit_wordbook_path(wordbook.id), class: "btn btn-emerald btn-sm" %><br><br>
