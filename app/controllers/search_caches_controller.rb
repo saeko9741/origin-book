@@ -68,7 +68,7 @@ class SearchCachesController < ApplicationController
         #単語、意味、語源を保存
         @search_cache = SearchCache.new(searchcache_params)
         @search_cache.definition = definition
-        if origin.blank?
+        if origin.blank? or origin == "『語源の広場』へようこそ。"
           origin = "語源を表示できませんでしたが、調べてみましょう！"
         end
         @search_cache.origin = origin
