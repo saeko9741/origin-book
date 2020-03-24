@@ -3,12 +3,12 @@
   <%= flash[:alert] %>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
-      <%= f.label :name%><br /> <p>(サンプル用 name: test1)</p>
+      <%= f.label :name%><br />
       <%= f.text_field :name, autofocus: true, class: "name" %>
     </div>
 
     <div class="field">
-      <%= f.label :password %><br /> <p> (サンプル用 password: 111111)</p>
+      <%= f.label :password %><br />
       <%= f.password_field :password, autocomplete: "current-password" %>
     </div>
 
@@ -22,6 +22,14 @@
     <div class="actions">
       <%= f.submit "Log in" %>
     </div>
+  <% end %>
+<!-- 簡単ログイン -->
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= f.hidden_field :name, value: "test1"  %>
+      <%= f.hidden_field :password, value: "111111" %>
+      <div class="actions">
+        <%= f.submit "テストユーザーとしてログイン", data: { disable_with: "ログイン中..." } %>
+      </div>
   <% end %>
 </div>
 

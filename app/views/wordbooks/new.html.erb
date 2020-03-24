@@ -73,6 +73,18 @@
 	      	  <input type="submit" name="commit" value="Sign up" data-disable-with="Sign up">
 	      	</div>
 	      </form>
+	      <!-- テストユーザーとしてログイン -->
+	      <form class="new_user" id="login_user" action="/users/sign_in" accept-charset="UTF-8" method="post">
+        	<input name="utf8" type="hidden" value="✓">
+        	<input type="hidden" name="authenticity_token" value="XVgTEXmFyXegr+apxHht0JO0LVAum6/VaDeP3GgYRv4Nw7aJX+uM2qLXoHio9hg9qYxMcUfP7c2Qn9URy1xn5Q==">
+        	<input type="hidden" name="modal" value="0">
+        	<input type="hidden" name="search_cache_id" value="<%= @search_cache.id %>">
+        	<input type="hidden" name="user[name]" value="test1">
+        	<input type="hidden" name="user[password]" value="111111">
+	        <div class="actions">
+	        	<input type="submit" name="commit" value="テストユーザーとしてログイン" data-disable-with="ログイン中"> <br>
+	        </div>
+        </form>
 	    </div>
 
 	    <div class="sign_in_modal sign_modal_content">
@@ -84,12 +96,12 @@
 	      	<input type="hidden" name="search_cache_id" value="<%= @search_cache.id %>">
 
 		        <div class="field">
-		          <label for="user_name">Name</label><p>(サンプル用 name: test1)</p>
+		          <label for="user_name">Name</label><br>
 		          <input autofocus="autofocus" class="name" type="text" name="user[name]" id="user_name">
 		        </div>
 
 		        <div class="field">
-		          <label for="user_password">Password</label><p> (サンプル用 password: 111111)</p>
+		          <label for="user_password">Password</label><br>
 		          <input autocomplete="current-password" type="password" name="user[password]" id="user_password">
 		        </div>
 
@@ -99,9 +111,21 @@
 	          </div>
 
 		        <div class="actions">
-		          <input type="submit" name="commit" value="Log in" data-disable-with="Log in">
+		        	<input type="submit" name="commit" value="Log in" data-disable-with="Log in">
 		        </div>
 	      </form>
+	      <!-- テストユーザーとしてログイン -->
+        <form class="new_user" id="login_user" action="/users/sign_in" accept-charset="UTF-8" method="post">
+        	<input name="utf8" type="hidden" value="✓">
+        	<input type="hidden" name="authenticity_token" value="XVgTEXmFyXegr+apxHht0JO0LVAum6/VaDeP3GgYRv4Nw7aJX+uM2qLXoHio9hg9qYxMcUfP7c2Qn9URy1xn5Q==">
+        	<input type="hidden" name="modal" value="0">
+        	<input type="hidden" name="search_cache_id" value="<%= @search_cache.id %>">
+        	<input type="hidden" name="user[name]" value="test1">
+        	<input type="hidden" name="user[password]" value="111111">
+	        <div class="actions">
+	        	<input type="submit" name="commit" value="テストユーザーとしてログイン" data-disable-with="ログイン中"> <br>
+	        </div>
+        </form>
 	    </div>
 	  </div>
 	</div>
