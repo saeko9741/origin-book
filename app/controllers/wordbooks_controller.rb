@@ -1,4 +1,5 @@
 class WordbooksController < ApplicationController
+before_action :set_wordbook, only: [:edit, :update, :destroy]
 
 	def new
 		@wordbook = Wordbook.new
@@ -25,13 +26,11 @@ class WordbooksController < ApplicationController
 		end
 	end
 	def edit
-		@wordbook = Wordbook.find(params[:id])
 		@wordbook.user_id = current_user.id
 		@search_cache = SearchCache.find_by(word: @wordbook.word)
 		@images = Image.where(search_cache_id: @search_cache.id)
 	end
 	def update
-		@wordbook = Wordbook.find(params[:id])
 		@wordbook.user_id = current_user.id
 		if params[:wordbook][:image_id] == "0"
 			params[:wordbook].delete(:image_id)
@@ -45,7 +44,6 @@ class WordbooksController < ApplicationController
 		end
 	end
 	def destroy
-		@wordbook = Wordbook.find(params[:id])
 		@wordbook.destroy
 		redirect_to wordbooks_path
 	end
@@ -53,5 +51,8 @@ class WordbooksController < ApplicationController
 	def wordbook_params
 	  params.require(:wordbook).permit(:word, :meaning, :origin, :image_id, :my_image)
 	  # definition, origin必要か
+	end
+	def set_wordbook
+		@wordbook = Wordbook.find(params[:id])
 	end
 end
