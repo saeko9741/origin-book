@@ -1,7 +1,7 @@
 # ORIGIN BOOK
 
 [![logo](https://user-images.githubusercontent.com/58896213/76677958-17ee5e00-6617-11ea-8dcf-7abb1da8358b.jpg)](http://13.115.157.168)  
-[ORIGIN BOOK](http://13.115.157.168/)
+[ORIGIN BOOK](http://originbook.tokyo/)
 
 
 
