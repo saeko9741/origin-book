@@ -6,24 +6,24 @@ require 'mechanize'
 
 class SearchCachesController < ApplicationController
   def create
-    word = params[:search_cache][:word]
+    searched_word = params[:search_cache][:word]
     if user_signed_in?
-      #検索された単語がwordbookテーブルにあるかどうか
-      applicable_wordbook = current_user.wordbooks.find_by(word: word)
+      applicable_wordbook = current_user.wordbooks.find_by(word: searched_word)
+      #ログインユーザーのwordbookに検索単語がある場合
       if applicable_wordbook.present?
         redirect_to edit_wordbook_path(applicable_wordbook.id)
         #wordbook内に単語があれば処理を終わらせる
         return
       end
     end
-    #検索された単語がsearchcacheテーブルにあるかどうか
-    applicable_searchcache = SearchCache.find_by(word: word)
-    #search_cacheに検索された単語がなければnilになる
+    #ログインしていないまたは、ログインユーザーのwordbookに検索単語がない場合
+    applicable_searchcache = SearchCache.find_by(word: searched_word)
+    #search_cacheに検索された単語がなければnilになり、翻訳・語源・画像を取得する
     if applicable_searchcache.nil?
 ### 翻訳API ###
     	translate_url = "https://translation.googleapis.com/language/translate/v2?key=#{ENV['TRANSLATE_API_KEY']}"
     	payload = {
-    	  q: word,
+    	  q: searched_word,
     	  target: 'ja',
     	  source: 'en'
     	}
@@ -40,41 +40,19 @@ class SearchCachesController < ApplicationController
     	    parse_response =  JSON.parse(response)
     	  end
 ### 翻訳API おわり ###
-
-### 語源　スクレイピング ###
-        agent = Mechanize.new
-        # getメソッドを使って submit結果表示ページ内のリンクを全取得
-        begin
-        searched_page = agent.get("http://gogen-wisdom.hatenablog.com/search?q=#{word}")
-        rescue => error
-        end
-        if searched_page.present?
-          #page内2番目以降のh1要素のa要素を全取得(1番目はヘッダー内)
-          entry_title_links = searched_page.search('h1[2] a')
-          #クリックするurlを取得 (entry_title_linksの０番目のattributes内href内value値を取得)
-          click_url = entry_title_links[0].attributes['href'].value
-          click_page = searched_page.link_with(href: click_url).click
-          origin = ""
-          origin_contents = click_page.search('.entry-content p')
-          origin_contents.each do |origin_content|
-            next if origin_content.inner_text.blank?
-              if origin_content.inner_text.include?("語")
-                origin = origin_content.inner_text
-                break
-              end
-          end
-        end
-### 語源　スクレイピング　おわり ###
+        # スクレイピング
+        origin = scrape_origin(searched_word)
         #単語、意味、語源を保存
         @search_cache = SearchCache.new(searchcache_params)
         @search_cache.definition = definition
+        # 正しく検索がヒットしない場合 "「語源の広場」へようこそ。" と表示される
         if origin.blank? or origin == "『語源の広場』へようこそ。"
           origin = "語源を表示できませんでしたが、調べてみましょう！"
         end
         @search_cache.origin = origin
         if @search_cache.save
 ### 画像API ###
-          image_url = "https://pixabay.com/api/?key=#{ENV['IMAGE_API_KEY']}&q=#{word}"
+          image_url = "https://pixabay.com/api/?key=#{ENV['IMAGE_API_KEY']}&q=#{searched_word}"
           # ただの文字列ではなくurlと認識させる？
           image_uri = URI(image_url)
           # 検索の結果を格納
@@ -102,8 +80,8 @@ class SearchCachesController < ApplicationController
             image.word_image = ""
             image.save!
           end
-          #検索された単語に一致するレコードを取得
-          applicable_searchcache = SearchCache.find_by(word: word)
+          #検索された単語に一致するレコードを取得(スコープ内再定義)
+          applicable_searchcache = SearchCache.find_by(word: searched_word)
           #検索された単語に一致するsearch_cachesのid
           redirect_to new_wordbook_path(search_cache_id: applicable_searchcache)
         else
@@ -118,5 +96,30 @@ class SearchCachesController < ApplicationController
   private
   def searchcache_params
     params.require(:search_cache).permit(:word)
+  end
+
+  def scrape_origin(word)
+    agent = Mechanize.new
+        # getメソッドを使って submit結果表示ページ内のリンクを全取得
+        begin
+        searched_page = agent.get("http://gogen-wisdom.hatenablog.com/search?q=#{word}")
+        rescue => error
+        end
+        if searched_page.present?
+          #page内2番目以降のh1要素のa要素を全取得(1番目はヘッダー内)
+          entry_title_links = searched_page.search('h1[2] a')
+          #クリックするurlを取得 (entry_title_linksの０番目のattributes内href内value値を取得)
+          click_url = entry_title_links[0].attributes['href'].value
+          click_page = searched_page.link_with(href: click_url).click
+          origin = ""
+          origin_contents = click_page.search('.entry-content p')
+          origin_contents.each do |origin_content|
+            next if origin_content.inner_text.blank?
+              if origin_content.inner_text.include?("語")
+                return origin_content.inner_text
+                break
+              end
+          end
+        end
   end
 end
