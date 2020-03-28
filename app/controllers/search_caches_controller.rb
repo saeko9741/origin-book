@@ -20,6 +20,19 @@ class SearchCachesController < ApplicationController
     applicable_searchcache = SearchCache.find_by(word: searched_word)
     #search_cacheに検索された単語がなければnilになり、翻訳・語源・画像を取得する
     if applicable_searchcache.nil?
+      @search_cache = SearchCache.new(searchcache_params)
+      # バリデーション(2文字以上)に引っかかればトップへ
+      unless @search_cache.valid?
+        render 'homes/top'
+        return
+      end
+      # 英語以外を検索させない
+      if searched_word.match(/[^a-zA-Z]/)
+        # 英語意外だったらtopへ
+        flash.now[:notice] = "英語で入力してください"
+        render 'homes/top'
+        return
+      end
 ### 翻訳API ###
       translate_url = "https://translation.googleapis.com/language/translate/v2?key=#{ENV['TRANSLATE_API_KEY']}"
       payload = {
@@ -43,7 +56,6 @@ class SearchCachesController < ApplicationController
 ### スクレイピング ###
         origin = scrape_origin(searched_word)
         #単語、意味、語源を保存
-        @search_cache = SearchCache.new(searchcache_params)
         @search_cache.definition = definition
         # 正しく検索がヒットしない場合 "「語源の広場」へようこそ。" と表示される
         if origin.blank? or origin == "『語源の広場』へようこそ。"
