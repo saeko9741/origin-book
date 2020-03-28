@@ -21,26 +21,26 @@ class SearchCachesController < ApplicationController
     #search_cacheに検索された単語がなければnilになり、翻訳・語源・画像を取得する
     if applicable_searchcache.nil?
 ### 翻訳API ###
-    	translate_url = "https://translation.googleapis.com/language/translate/v2?key=#{ENV['TRANSLATE_API_KEY']}"
-    	payload = {
-    	  q: searched_word,
-    	  target: 'ja',
-    	  source: 'en'
-    	}
-    	header = {:content_type=>"text/html; charset=utf-8"}
+      translate_url = "https://translation.googleapis.com/language/translate/v2?key=#{ENV['TRANSLATE_API_KEY']}"
+      payload = {
+        q: searched_word,
+        target: 'ja',
+        source: 'en'
+      }
+      header = {:content_type=>"text/html; charset=utf-8"}
       #APIにリクエストを送信
-    	RestClient.post(translate_url, payload.to_json, header) do |response, request, result|
-    	  case response.code
-    	  when 200
-    	    # 成功時の処理
-    	    parse_response =  JSON.parse(response)
+      RestClient.post(translate_url, payload.to_json, header) do |response, request, result|
+        case response.code
+        when 200
+          # 成功時の処理
+          parse_response =  JSON.parse(response)
     	    definition = parse_response['data']['translations'][0]['translatedText']
-    	  else
-    	    # 失敗時の処理
-    	    parse_response =  JSON.parse(response)
-    	  end
+        else
+          # 失敗時の処理
+          parse_response =  JSON.parse(response)
+        end
 ### 翻訳API おわり ###
-        # スクレイピング
+### スクレイピング ###
         origin = scrape_origin(searched_word)
         #単語、意味、語源を保存
         @search_cache = SearchCache.new(searchcache_params)
@@ -100,26 +100,25 @@ class SearchCachesController < ApplicationController
 
   def scrape_origin(word)
     agent = Mechanize.new
-        # getメソッドを使って submit結果表示ページ内のリンクを全取得
-        begin
-        searched_page = agent.get("http://gogen-wisdom.hatenablog.com/search?q=#{word}")
-        rescue => error
-        end
-        if searched_page.present?
-          #page内2番目以降のh1要素のa要素を全取得(1番目はヘッダー内)
-          entry_title_links = searched_page.search('h1[2] a')
-          #クリックするurlを取得 (entry_title_linksの０番目のattributes内href内value値を取得)
-          click_url = entry_title_links[0].attributes['href'].value
-          click_page = searched_page.link_with(href: click_url).click
-          origin = ""
-          origin_contents = click_page.search('.entry-content p')
-          origin_contents.each do |origin_content|
-            next if origin_content.inner_text.blank?
-              if origin_content.inner_text.include?("語")
-                return origin_content.inner_text
-                break
-              end
+    begin
+    searched_page = agent.get("http://gogen-wisdom.hatenablog.com/search?q=#{word}")
+    rescue => error
+    end
+    if searched_page.present?
+      #page内2番目以降のh1要素のa要素を全取得(1番目はヘッダー内)
+      entry_title_links = searched_page.search('h1[2] a')
+      #クリックするurlを取得 (entry_title_linksの０番目のattributes内href内value値を取得)
+      click_url = entry_title_links[0].attributes['href'].value
+      click_page = searched_page.link_with(href: click_url).click
+      origin = ""
+      origin_contents = click_page.search('.entry-content p')
+      origin_contents.each do |origin_content|
+        next if origin_content.inner_text.blank?
+          if origin_content.inner_text.include?("語")
+            return origin_content.inner_text
+            break
           end
-        end
+      end
+    end
   end
 end
