@@ -21,15 +21,8 @@ class SearchCachesController < ApplicationController
     #search_cacheに検索された単語がなければnilになり、翻訳・語源・画像を取得する
     if applicable_searchcache.nil?
       @search_cache = SearchCache.new(searchcache_params)
-      # バリデーション(2文字以上)に引っかかればトップへ
+      # バリデーションに引っかかればトップへ
       unless @search_cache.valid?
-        render 'homes/top'
-        return
-      end
-      # 英語以外を検索させない
-      if searched_word.match(/[^a-zA-Z]/)
-        # 英語意外だったらtopへ
-        flash.now[:notice] = "英語で入力してください"
         render 'homes/top'
         return
       end
@@ -41,7 +34,6 @@ class SearchCachesController < ApplicationController
         source: 'en'
       }
       header = {:content_type=>"text/html; charset=utf-8"}
-      #APIにリクエストを送信
       RestClient.post(translate_url, payload.to_json, header) do |response, request, result|
         case response.code
         when 200
@@ -49,7 +41,6 @@ class SearchCachesController < ApplicationController
           parse_response =  JSON.parse(response)
     	    definition = parse_response['data']['translations'][0]['translatedText']
         else
-          # 失敗時の処理
           parse_response =  JSON.parse(response)
         end
 ### 翻訳API おわり ###
@@ -65,9 +56,7 @@ class SearchCachesController < ApplicationController
         if @search_cache.save
 ### 画像API ###
           image_url = "https://pixabay.com/api/?key=#{ENV['IMAGE_API_KEY']}&q=#{searched_word}"
-          # ただの文字列ではなくurlと認識させる？
           image_uri = URI(image_url)
-          # 検索の結果を格納
           response = Net::HTTP.get(image_uri)
           # JSONからRubyのハッシュをつくる
           parsed_response = JSON.parse(response)
@@ -75,7 +64,6 @@ class SearchCachesController < ApplicationController
           word_image_hits = parsed_response["hits"]
           # 配列内のハッシュが配列の要素となり、previewURL(key)を元にurlを要素分繰り返し処理し、配列で変数に格納される
           word_image_options = word_image_hits.map {|image| image["previewURL"]}
-          # 検索結果の始めから5番目まで入れる
           word_images = word_image_options.first(5)
   ### 画像API おわり###
           # imageを保存
