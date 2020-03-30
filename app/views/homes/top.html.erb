@@ -1,6 +1,6 @@
 <div class="top">
 	<%=form_with model: @search_cache, local: true do |f|%>
-git     <% if @search_cache.errors.any? %>
+    <% if @search_cache.errors.any? %>
         <div id="error_explanation">
           <h4><%= @search_cache.errors.count %>件のエラーが発生しました。</h4>
           <ul>
