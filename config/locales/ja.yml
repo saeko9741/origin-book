@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+      search_cache: サーチキャッシュ
+    attributes:
+      search_cache:
+        word: 英単語

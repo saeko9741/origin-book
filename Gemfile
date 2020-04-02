@@ -84,5 +84,7 @@ gem 'nokogiri'
 gem 'mechanize'
 # HTTPアクセス用
 gem 'rest-client'
+#エラーメッセーの日本語化
+gem 'rails-i18n'
 
 
