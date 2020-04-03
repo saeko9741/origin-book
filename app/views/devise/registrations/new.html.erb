@@ -27,16 +27,16 @@
       <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
     </div>
 
-    <div class="actions">
-      <%= f.submit "Sign up" %>
+    <div class="user-actions">
+      <%= f.submit "Sign up", class: "btn btn-grey" %>
     </div>
   <% end %>
 <!-- テストユーザーログイン -->
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <%= f.hidden_field :name, value: "test1"  %>
       <%= f.hidden_field :password, value: "111111" %>
-      <div class="actions">
-        <%= f.submit "テストユーザーとしてログイン", data: { disable_with: "ログイン中..." } %>
+      <div class="user-actions">
+        <%= f.submit "テストユーザーとしてログイン", data: { disable_with: "ログイン中..." }, class: "btn btn-grey" %>
       </div>
   <% end %>
 
