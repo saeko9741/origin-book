@@ -77,8 +77,8 @@ end
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 # 画像投稿
-gem "refile", require: "refile/rails", github: 'manfe/refile'
-gem "refile-mini_magick"
+gem 'refile', require: 'refile/rails', github: 'manfe/refile'
+gem 'refile-mini_magick'
 # スクレイピング
 gem 'nokogiri'
 gem 'mechanize'
@@ -86,5 +86,8 @@ gem 'mechanize'
 gem 'rest-client'
 #エラーメッセーの日本語化
 gem 'rails-i18n'
+#deviseの日本語化
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 
 
