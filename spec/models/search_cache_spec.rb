@@ -14,6 +14,11 @@ RSpec.describe SearchCache, type: :model do
       expect(search_cache).to_not be_valid
     end
 
+    it "is invalid with a too short word" do
+      search_cache = build(:search_cache, word: "a")
+      expect(search_cache).to_not be_valid
+    end
+
   end
 
 end
