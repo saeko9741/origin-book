@@ -7,3 +7,7 @@ ja:
         name: 名前
         email: メールアドレス
         password: パスワード
+      wordbook:
+        image: 画像
+        meaning: 意味
+        origin: 語源
