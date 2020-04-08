@@ -20,7 +20,7 @@ RSpec.describe SearchCache, type: :model do
     end
 
     it "is invalid with a too long word" do
-      search_cache = build(:search_cache, word: "aaaaaaaaaaaaaaaaaaaaa")
+      search_cache = build(:search_cache, word: "a" * 21)
       expect(search_cache).to_not be_valid
     end
 
