@@ -19,6 +19,11 @@ RSpec.describe SearchCache, type: :model do
       expect(search_cache).to_not be_valid
     end
 
+    it "is invalid with a too long word" do
+      search_cache = build(:search_cache, word: "aaaaaaaaaaaaaaaaaaaaa")
+      expect(search_cache).to_not be_valid
+    end
+
     it "is invalid with something else except for an english word" do
       search_cache = build(:search_cache, word: "!$1&")
       expect(search_cache).to_not be_valid
