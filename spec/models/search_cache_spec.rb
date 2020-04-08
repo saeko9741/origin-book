@@ -8,4 +8,12 @@ RSpec.describe SearchCache, type: :model do
     end
   end
 
+  context "when a search_cache is invalid" do
+    it "is invalid without a word" do
+      search_cache = build(:search_cache, word: " ")
+      expect(search_cache).to_not be_valid
+    end
+
+  end
+
 end
