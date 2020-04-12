@@ -56,7 +56,11 @@ MY WORDBOOKの単語は「意味」「語源」「画像」すべて編集・削
 * gem refile-mini_magic
 * gem mechanize
 * gem rest-client
-
+* gem rspec-rails
+* gem factory_bot_rails
+* gem rails-i18n
+* gem devise-i18n
+* gem devise-i18n-views
 
 ## API
 [Google translation API](https://cloud.google.com/translate/docs?hl=ja)  
