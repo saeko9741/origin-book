@@ -17,6 +17,11 @@
 
 .sign_up_button {
   margin-right: 30px;
+  background-color: #4aaead;
+}
+
+.sign_in_button {
+  background-color: #f1d246;
 }
 .sign_modal_wrapper {
   position: fixed;
@@ -32,7 +37,7 @@
   position: absolute;
   background-color: #fff;
   width: 450px;
-  height: 350px;
+  height: 450px;
   top: 0;
   left: 0;
   bottom: 0;
@@ -50,6 +55,10 @@
 .wrapper {
   cursor: pointer;
   margin: 3px 3px 0 0;
+}
+
+.actions {
+  margin: 20px;
 }
 
 .edit-container {

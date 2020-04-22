@@ -60,6 +60,8 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -77,12 +79,17 @@ end
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 # 画像投稿
-gem "refile", require: "refile/rails", github: 'manfe/refile'
-gem "refile-mini_magick"
+gem 'refile', require: 'refile/rails', github: 'manfe/refile'
+gem 'refile-mini_magick'
 # スクレイピング
 gem 'nokogiri'
 gem 'mechanize'
 # HTTPアクセス用
 gem 'rest-client'
+#エラーメッセーの日本語化
+gem 'rails-i18n'
+#deviseの日本語化
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 
 

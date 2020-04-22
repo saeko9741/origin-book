@@ -3,7 +3,7 @@
   <%= flash[:alert] %>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
-      <%= f.label :name %><br />
+      <%= f.label :name%><br />
       <%= f.text_field :name, autofocus: true, class: "name" %>
     </div>
 
@@ -19,9 +19,17 @@
       </div>
     <% end %>
 
-    <div class="actions">
-      <%= f.submit "Log in" %>
+    <div class="user-actions">
+      <%= f.submit "Log in", class: "btn btn-grey" %>
     </div>
+  <% end %>
+<!-- 簡単ログイン -->
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= f.hidden_field :name, value: "test1"  %>
+      <%= f.hidden_field :password, value: "111111" %>
+      <div class="user-actions">
+        <%= f.submit "テストユーザーとしてログイン", data: { disable_with: "ログイン中..." }, class: "btn btn-grey" %>
+      </div>
   <% end %>
 </div>
 

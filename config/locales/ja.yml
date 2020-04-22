@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    attributes:
+      search_cache:
+        word: 英単語
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+      wordbook:
+        image: 画像
+        meaning: 意味
+        origin: 語源

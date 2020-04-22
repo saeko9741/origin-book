@@ -36,7 +36,7 @@ $grey: #5f5f5f;
 
 #logo {
   margin-top: -17px;
-  width: 20vw;
+  width: 245px;
 }
 
 .main-header li {
@@ -88,6 +88,17 @@ $grey: #5f5f5f;
 
 .user-form-wrapper {
   width: 35%;
+  text-align: center;
 }
 
+.field {
+  margin: 20px;
+}
 
+.user-actions {
+  margin-top: 20px;
+}
+
+#error_explanation {
+  color: cadetblue;
+}
