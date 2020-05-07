@@ -31,6 +31,8 @@ before_action :set_wordbook, only: [:edit, :update, :destroy]
 		@images = Image.where(search_cache_id: @search_cache.id)
 	end
 	def update
+		@search_cache = SearchCache.find_by(word: @wordbook.word)
+		@images = Image.where(search_cache_id: @search_cache.id)
 		@wordbook.user_id = current_user.id
 		if params[:wordbook][:image_id] == "0"
 			params[:wordbook].delete(:image_id)
