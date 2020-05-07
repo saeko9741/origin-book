@@ -1,7 +1,6 @@
-require 'net/http'
-require 'json'
 #HTTPアクセスの為のライブラリ
 require 'rest-client'
+# スクレイピング用ライブラリ
 require 'mechanize'
 
 class SearchCachesController < ApplicationController
@@ -55,9 +54,7 @@ class SearchCachesController < ApplicationController
         @search_cache.origin = origin
         if @search_cache.save
 ### 画像API ###
-          image_url = "https://pixabay.com/api/?key=#{ENV['IMAGE_API_KEY']}&q=#{searched_word}"
-          image_uri = URI(image_url)
-          response = Net::HTTP.get(image_uri)
+          response = RestClient.get "https://pixabay.com/api/?key=#{ENV['IMAGE_API_KEY']}&q=#{searched_word}"
           # JSONからRubyのハッシュをつくる
           parsed_response = JSON.parse(response)
           # ハッシュの中のhits(key)で要素(value)を配列で取得
