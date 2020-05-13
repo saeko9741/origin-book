@@ -22,7 +22,7 @@ class SearchCachesController < ApplicationController
       @search_cache = SearchCache.new(searchcache_params)
       # バリデーションに引っかかればトップへ
       return render 'homes/top' unless @search_cache.valid?
-            @search_cache.register!
+      @search_cache.register!
     end
     applicable_searchcache = SearchCache.find_by(word: searched_word)
     #検索された単語に一致するsearch_cachesのid
