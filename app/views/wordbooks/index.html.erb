@@ -1,12 +1,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<h2>MY WORDBOOK</h2>
-		<div class="hidden_box">
-			<!--
-			<label for="label1">クリックで意味表示</label>
-			<input type="checkbox" id="label1"/> -->
-			<%= check_box_tag :label1 %>
-			<%= label_tag :label1, "クリックで意味表示" %>
+		<input type="button" value="意味を非表示" onclick="changeDisplay();"/>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -29,9 +24,7 @@
 							<% else %>
 							  <td><%= image_tag "no_image.jpg" %></td>
 							<% end %>
-							 <td>
-							 	<div class="hidden_show"><%= wordbook.meaning %></div>
-							 </td>
+							 <td><p id="target"><%= wordbook.meaning %></p></td>
 							<td><%=link_to "編集", edit_wordbook_path(wordbook.id), class: "btn btn-emerald btn-sm" %><br><br>
 								<%=link_to "削除", wordbook_path(wordbook.id), class: "btn btn-yellow btn-sm", method: :delete,"data-confirm" => "本当に削除しますか?" %>
 							</td>
@@ -39,6 +32,5 @@
 					<% end %>
 				</tbody>
 			</table>
-	  </div>
 	</div>
 </div>
