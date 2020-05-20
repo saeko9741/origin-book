@@ -7,7 +7,7 @@ before_action :set_wordbook, only: [:edit, :update, :destroy]
 		@images = Image.where(search_cache_id: params[:search_cache_id])
 	end
 	def index
-		@wordbooks = current_user.wordbooks
+		@wordbooks = current_user.wordbooks.page(params[:page]).reverse_order
 		# @wordbooks = Wordbook.where(user_id: current_user.id)
 	end
 	def create
