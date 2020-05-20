@@ -91,5 +91,5 @@ gem 'rails-i18n'
 #deviseの日本語化
 gem 'devise-i18n'
 gem 'devise-i18n-views'
-
-
+#ページング機能
+gem 'kaminari','~> 1.1.1'
