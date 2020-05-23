@@ -91,7 +91,5 @@ gem 'rails-i18n'
 #deviseの日本語化
 gem 'devise-i18n'
 gem 'devise-i18n-views'
-# railsの変数をJSで使う
-gem 'gon'
 
 
