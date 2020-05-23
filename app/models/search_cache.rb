@@ -14,7 +14,7 @@ class SearchCache < ApplicationRecord
 
   def bulk_create_images!
     # 画像API
-    word_images = fetch_images(word)
+    word_images = fetch_images
     if word_images.present?
       word_images.each do |word_image|
         images.create!(word_image: word_image)
@@ -28,7 +28,7 @@ class SearchCache < ApplicationRecord
   def scrape_origin
     agent = Mechanize.new
     begin
-      searched_page = agent.get("http://gogen-wisdom.hatenablog.com/search?q=#{self.word}")
+      searched_page = agent.get("http://gogen-wisdom.hatenablog.com/search?q=#{word}")
     rescue => error
     end
     if searched_page.present?
@@ -71,7 +71,7 @@ class SearchCache < ApplicationRecord
       end
   end
 
-  def fetch_images(word)
+  def fetch_images
     response = RestClient.get "https://pixabay.com/api/?key=#{ENV['IMAGE_API_KEY']}&q=#{word}"
     # JSONからRubyのハッシュをつくる
     parsed_response = JSON.parse(response)
