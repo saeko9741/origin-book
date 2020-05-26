@@ -4,11 +4,11 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>単語</th>
+						<th>単語  <input type="button" class="btn btn-grey btn-xs" value="非表示・表示" onclick="hiddenWord();"/></th>
 						<th>語源</th>
 						<th>画像</th>
 						<th>
-							意味  <input type="button" class="btn btn-grey btn-xs" value="非表示・表示" onclick="changeVisible();"/>
+							意味  <input type="button" class="btn btn-grey btn-xs" value="非表示・表示" onclick="hiddenMeaning();"/>
 						</th>
 						<th>編集・削除</th>
 					</tr>
@@ -16,7 +16,7 @@
 				<tbody>
 					<% @wordbooks.each do |wordbook| %>
 						<tr>
-							<td><%= wordbook.word %></td>
+							<td><p class="word"><%= wordbook.word %></p></td>
 							<td><%= wordbook.origin %></td>
 							<% if wordbook.my_image.present? %>
 								<td><%= attachment_image_tag wordbook, :my_image, :fill, 150, 100 %></td>
@@ -25,7 +25,7 @@
 							<% else %>
 							  <td><%= image_tag "no_image.jpg" %></td>
 							<% end %>
-							 <td><p class="target"><%= wordbook.meaning %></p></td>
+							 <td><p class="meaning"><%= wordbook.meaning %></p></td>
 							<td><%=link_to "編集", edit_wordbook_path(wordbook.id), class: "btn btn-emerald btn-sm" %><br><br>
 								<%=link_to "削除", wordbook_path(wordbook.id), class: "btn btn-yellow btn-sm", method: :delete,"data-confirm" => "本当に削除しますか?" %>
 							</td>
@@ -33,6 +33,5 @@
 					<% end %>
 				</tbody>
 			</table>
-		<%= paginate @wordbooks %>
 	</div>
 </div>
