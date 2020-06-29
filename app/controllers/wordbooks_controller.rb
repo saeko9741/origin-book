@@ -11,6 +11,7 @@ before_action :set_wordbook, only: [:edit, :update, :destroy]
 		# @wordbooks = Wordbook.where(user_id: current_user.id)
 	end
 	def create
+		@user = current_user
 		@wordbook = Wordbook.new(wordbook_params)
 		@wordbook.user_id = current_user.id
 		image = Image.find_by(search_cache_id: params[:search_cache_id])
@@ -18,6 +19,7 @@ before_action :set_wordbook, only: [:edit, :update, :destroy]
 			@wordbook.image_id = image.id
 		end
 		if @wordbook.save
+			WordbookMailer.with(user: @user, wordbook: @wordbook).wordbook_email.deliver_now
 			redirect_to wordbooks_path
 		else
 			@search_cache = SearchCache.find(params[:search_cache_id])
@@ -52,7 +54,6 @@ before_action :set_wordbook, only: [:edit, :update, :destroy]
 	private
 	def wordbook_params
 	  params.require(:wordbook).permit(:word, :meaning, :origin, :image_id, :my_image)
-	  # definition, origin必要か
 	end
 	def set_wordbook
 		@wordbook = Wordbook.find(params[:id])
