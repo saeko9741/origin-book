@@ -40,7 +40,8 @@ Google stanslation APIを用いて検索された英単語の日本語訳を表�
 * **MY WORDBOOK (MY単語帳)作成機能**  
 MY WORDBOOKの単語は「意味」「語源」「画像」すべて編集・削除が可能であり、検索時に表示された画像の他にも任意の画像を登録することも可能です。
 
-
+* **表示・非表示機能**  
+MY WORDBOOKに保存された単語の「意味」または「英単語」を非表示にすることで、英単語から意味を、意味から英単語を覚えているか確認することもできます。
 
 * **その他機能**  
 一度検索された英単語は自動的に保存されるため、二回目に検索された場合はすぐに検索結果を表示することが可能になります。
@@ -61,6 +62,7 @@ MY WORDBOOKの単語は「意味」「語源」「画像」すべて編集・削
 * gem rails-i18n
 * gem devise-i18n
 * gem devise-i18n-views
+* gem kaminari
 
 ## API
 [Google translation API](https://cloud.google.com/translate/docs?hl=ja)  
