@@ -92,4 +92,4 @@ gem 'rails-i18n'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 #ページング機能
-gem 'kaminari','~> 1.1.1'
+gem 'kaminari','~> 1.2.1'
